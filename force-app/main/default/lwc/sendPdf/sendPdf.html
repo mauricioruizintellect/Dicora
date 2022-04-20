@@ -1,0 +1,54 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <template if:true={isLoadingSpinner}>
+        <div class="slds-p-around_x-large">
+            <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+        </div>
+     </template>
+    <lightning-quick-action-panel header="Enviar Orden de Compra">
+        <div class="slds-m-around_medium">
+            <iframe width="890" height="400" src={urlFile}></iframe>
+        </div>        
+        <div slot="footer">
+          <lightning-button variant="neutral" label="Cancelar" onclick={cancel}></lightning-button>
+          <lightning-button variant="brand" label="Enviar PDF" class="slds-m-left_x-small" onclick={handleModalEmail}></lightning-button>
+        </div>
+      </lightning-quick-action-panel>
+      <!--Modal Box Start-->
+   <template if:true={isModalOpen}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="modalSection slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+         <!--Modal Header Start-->
+          <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+              <lightning-icon variant="inverse" onclick={handleModalEmail} alternative-text="close" icon-name="utility:close" size="small"></lightning-icon>
+            </button>
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Correo eléctronico</h2>
+          </header>
+         <!--Modal Body Start-->
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-input type="email" label="Correo" value={email} class="email" pattern="[A-Za-z0-9._-]+@[a-z0-9-]+\.[a-z]{2,}$"
+                placeholder="uncorreo@ejemplo.com" message-when-pattern-mismatch="Por favor ingrese un correo válido" 
+                required></lightning-input>
+                <lightning-input type="email" label="Cc" class="email2" pattern="[A-Za-z0-9._-]+@[a-z0-9-]+\.[a-z]{2,}$"
+                placeholder="uncorreo@ejemplo.com" message-when-pattern-mismatch="Por favor ingrese un correo válido" 
+                ></lightning-input>
+               <!--  <lightning-textarea name="body" class="body" label="Mensaje del correo" placeholder="Escriba aquí..." required>
+                </lightning-textarea> -->
+                <lightning-input-rich-text label-visible
+                class="body" label="Mensaje del correo" value={label.bodyTemplate} placeholder="Escriba aquí..." required>
+                </lightning-input-rich-text>
+            </div>
+          </div>
+          <!--Modal Footer Start-->
+          <footer class="slds-modal__footer">
+            <lightning-button label="Cancel" onclick={handleModalEmail}></lightning-button>
+             &nbsp;
+            <lightning-button variant="brand" label="Enviar Archivo" onclick={sendEmail}></lightning-button>
+          </footer>
+        </div>
+      </section>
+      <div class="backdropDiv slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

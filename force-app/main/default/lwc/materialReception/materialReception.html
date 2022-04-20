@@ -1,0 +1,71 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <template if:true={isLoadingSpinner}>
+        <div class="slds-p-around_x-large">
+            <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+        </div>
+     </template>
+     <lightning-card  variant="Narrow"  title="Materiales de orden de compra" icon-name="standard:account">
+        <div class="slds-col slds-size_2-of-4">
+            <template if:true={receivedByPicklist.data}>
+               <lightning-combobox name="Recibido" label="Recibido Por" value={receivedBy}
+                   options={receivedByPicklist.data.values} onchange={handleChangeReceivedBy}>
+               </lightning-combobox>
+           </template>
+         </div>
+        <div class="slds-scrollable" style="max-height:400px;width:100%">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" aria-label="linea de ordenes">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Cadena">Material</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Formato">Precio</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Formato">Cantidad</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Formato">Total</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Producto">Cantidad Recibida</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Producto">Razón diferencia</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={orderLineItems} for:item="record">
+                        <tr class="slds-hint-parent" key={record.Id}>
+                            <td data-label={record.Material}>
+                                <div class="slds-truncate" title={record.Material}>{record.Material}</div>
+                            </td>
+                            <td data-label={record.Precio}>
+                                <div class="slds-truncate" title={record.Precio}>{record.Precio}</div>
+                            </td>
+                            <td data-label={record.Cantidad}>
+                                <div class="slds-truncate" title={record.Cantidad}>{record.Cantidad}</div>
+                            </td>
+                            <td data-label={record.Total}>
+                                <div class="slds-truncate" title={record.Total}>{record.Total}</div>
+                            </td>
+                            <td data-label={record.CantidadPendiente}>
+                                <div class="slds-truncate" title={record.CantidadPendiente}>
+                                    <lightning-input name={record.Id} disabled={record.disabled} type="number" value={record.CantidadPendiente} max={record.CantidadPendiente} variant="label-hidden" onchange={changeInputQuantity}></lightning-input>
+                                </div>
+                            </td>
+                            <td data-label={record.CantidadPendiente}>
+                                <div class="slds-truncate" title={record.CantidadPendiente}>
+                                    <lightning-input name={record.Id} disabled={record.disabled} type="text" variant="label-hidden" onchange={changeReasonDifference}></lightning-input>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,166 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-quick-action-panel header="Gestionar entrega productos de campaña">
+        <template if:true={isLoadingSpinner}>
+            <div class="slds-p-around_x-large">
+                <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+            </div>
+         </template>
+         <template if:false={showSignature}>
+            <lightning-card  variant="Narrow"  title="Productos de campaña" icon-name="standard:account">
+                <div class="slds-scrollable" style="max-height:400px;width:100%">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" aria-label="linea de ordenes">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Cadena">Producto</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Formato">Cantidad</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Formato">Cantidad Recibida</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Formato">Cantidad Pendiente</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Producto">Cantidad confirmada</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Producto">Opciones</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={productItems} for:item="record">
+                                <tr class="slds-hint-parent" key={record.Id}>
+                                    <td data-label={record.Producto}>
+                                        <div class="slds-truncate" title={record.Producto}>{record.Producto}</div>
+                                    </td>
+                                    <td data-label={record.Cantidad}>
+                                        <div class="slds-truncate" title={record.Cantidad}>{record.Cantidad}</div>
+                                    </td>
+                                    <td data-label={record.CantidadRecibida}>
+                                        <div class="slds-truncate" title={record.CantidadRecibida}>{record.CantidadRecibida}</div>
+                                    </td>
+                                    <td data-label={record.CantidadPendiente}>
+                                        <div class="slds-truncate" title={record.CantidadPendiente}>{record.CantidadPendiente}</div>
+                                    </td>
+                                    <td data-label={record.CantidadPendiente}>
+                                        <div class="slds-truncate" title={record.CantidadPendiente}>
+                                            <lightning-input name={record.Id} disabled={record.disabled} type="number" value={record.CantidadPendiente} max={record.CantidadPendiente} variant="label-hidden" onchange={changeInputQuantity}></lightning-input>
+                                        </div>
+                                    </td>
+                                    <td>
+                                       <template if:false={isDeliveredProd}>
+                                            <lightning-button variant="brand"
+                                            label="Agregar Producto"
+                                            title="Agregar Producto"
+                                            onclick={createProductDelivery}
+                                            class="slds-m-left_x-small"
+                                            name={record.Id}
+                                            disabled={record.disabled}>
+                                            </lightning-button>
+                                       </template> 
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </lightning-card>
+            <lightning-card  variant="Narrow"  title="Productos de entrega" icon-name="standard:account">
+                <div class="slds-scrollable" style="max-height:400px;width:100%">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" aria-label="linea de ordenes">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Cadena">Producto</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Formato">Cantidad</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Producto">Opciones</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={productDeliveryItem} for:item="record">
+                                <tr class="slds-hint-parent" key={record.Id}>
+                                    <td data-label={record.ProductoName}>
+                                        <div class="slds-truncate" title={record.ProductoName}>{record.ProductoName}</div>
+                                    </td>
+                                    <td data-label={record.Cantidad}>
+                                        <div class="slds-truncate" title={record.Cantidad}>{record.Cantidad}</div>
+                                    </td>
+                                    <td>
+                                        <lightning-button variant="brand"
+                                        label="Eliminar Producto"
+                                        title="Eliminar Producto"
+                                        onclick={deleteProduct}
+                                        class="slds-m-left_x-small"
+                                        name={record.Id}
+                                        disabled={isDeliveredProd}>
+                                        </lightning-button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </lightning-card>
+        </template>
+        <template if:true={showSignature}>
+            <div class="slds-scrollable" style="height:400px;width:100%">
+                <lightning-layout>
+                    <lightning-layout-item flexibility="auto" padding="around-small" if:false={enabledPicklistDelivered}>
+                        <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+                            <lightning-layout multiple-rows>
+                            <template if:true={receivedByPicklist.data}>
+                                <lightning-layout-item size="6" padding="around-small">
+                                    <lightning-combobox name="Recibido" label="Recibido Por" value={valueSignatureReceived}
+                                        options={receivedByPicklist.data.values} onchange={handleSignature}>
+                                    </lightning-combobox>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6" padding="around-small">
+                                <template if:true={typeProdLog}>
+                                    <lightning-record-edit-form object-api-name="EntregaDeProducto__c" id="createEntregaDeProductoForm" >
+                                        <lightning-input-field field-name="Ruta__c" onchange={handleRutaSelection} required> </lightning-input-field>
+                                    </lightning-record-edit-form>
+                                </template>
+                            </lightning-layout-item>
+                            </template>
+                            </lightning-layout>
+                            <div if:true={firstSignature}>
+                                <c-capture-signature record-id={recordId} file-name={fileNameSignature} title="Firma recibido" onclose={handleSignatureReceived}></c-capture-signature>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="auto" padding="around-small" if:true={enabledPicklistDelivered}>
+                        <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+                            <template if:true={deliveredByPicklist.data}>
+                                <lightning-combobox name="Entregado" label="Entregado Por" value={valueSignatureDelivered}
+                                    options={deliveredByPicklist.data.values} onchange={handleSignature}>
+                                </lightning-combobox>
+                                <template if:false={typeProdLog}>
+                                    <lightning-combobox name="Razon" label="Razon no entrega" value={valueReason}
+                                        options={reasonPicklist.data.values} onchange={handleReason}>
+                                    </lightning-combobox>
+                                </template>
+                            </template>
+                            <div if:true={secondSignature}>
+                                <c-capture-signature record-id={recordId} file-name={fileNameSignature} title="Firma entregado" onclose={handleSignatureDelivered}></c-capture-signature>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </template>
+        <div slot="footer">
+            <lightning-button variant="neutral" label="Cancelar" class="slds-m-right_xx-small" onclick={cancel}></lightning-button>
+            <lightning-button if:false={showSignature} variant="brand" label="Finalizar entrega" onclick={createSignatures} disabled={isDeliveredProd}></lightning-button>
+         </div>
+    </lightning-quick-action-panel>
+</template>

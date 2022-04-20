@@ -1,0 +1,178 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-quick-action-panel header="Recepción de orden">
+      <template if:true={isLoadingSpinner}>
+         <div class="slds-p-around_x-large">
+             <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+         </div>
+      </template>
+      <div class="slds-grid" if:false={showSignature}>
+         <div class="slds-col slds-size_1-of-4">
+            <template if:true={recibidoPorPicklist.data}>
+               <lightning-combobox name="Recibido" label="Recibido Por" value={recibidoPor}
+                   options={recibidoPorPicklist.data.values} onchange={handleChangeRecibidoPor}>
+               </lightning-combobox>
+           </template>
+         </div>
+      </div>
+      <div class="slds-scrollable" style="max-height:400px;width:100%">
+       <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" aria-label="linea de ordenes" if:false={showSignature}>
+         <thead>
+             <tr class="slds-line-height_reset">
+               <th class="" scope="col" if:true={recordTypeIsRepVarios}>
+                  <div class="slds-truncate" title="Cadena">Contrato</div>
+               </th>
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="Cadena">Cadena</div>
+                </th>
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="Formato">Formato</div>
+                </th>
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="Producto">Producto</div>
+                </th>
+                <th class="" scope="col" if:false={recordTypeIsProduction}>
+                   <div class="slds-truncate" title="Sitio">Sitio</div>
+                </th>
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="Medida">Medida</div>
+                </th>
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="Arte">Arte</div>
+                </th>
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="Cantidad">Cantidad</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Cantidad">Tarifa</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Cantidad">Total</div>
+                </th>
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Cantidad">Recibido</div>
+               </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Cantidad">Cantidad a recibir</div>
+                </th>
+             </tr>
+          </thead>
+          <tbody>
+            <template for:each={orderLineItems} for:item="record">
+                <tr class="slds-hint-parent" key={record.Id}>
+                  <td data-label={record.contrato} if:true={recordTypeIsRepVarios}>
+                     <div class="slds-truncate" title={record.contrato}>{record.contrato}</div>
+                  </td>
+                    <td data-label={record.cadena}>
+                       <div class="slds-truncate" title={record.cadena}>{record.cadena}</div>
+                    </td>
+                    <td data-label={record.formato}>
+                        <div class="slds-truncate" title={record.formato}>{record.formato}</div>
+                     </td>
+                     <td data-label={record.producto}>
+                        <div class="slds-truncate" title={record.producto}>{record.producto}</div>
+                     </td>
+                     <td data-label={record.sitio} if:false={recordTypeIsProduction}>
+                        <div class="slds-truncate" title={record.sitio}>{record.sitio}</div>
+                     </td>
+                     <td data-label={record.medida}>
+                        <div class="slds-truncate" title={record.medida}>{record.medida}</div>
+                     </td>
+                     <td data-label={record.arte}>
+                        <div class="slds-truncate" title={record.arte}>{record.arte}</div>
+                     </td>
+                     <td data-label={record.cantidad}>
+                        <div class="slds-truncate" title={record.cantidad}>{record.cantidad}</div>
+                     </td>
+                     <td data-label={record.tarifa}>
+                        <div class="slds-truncate" title={record.tarifa}>{record.tarifa}</div>
+                     </td>
+                     <td data-label={record.total}>
+                        <div class="slds-truncate" title={record.total}>{record.total}</div>
+                     </td>
+                     <td data-label={record.cantidadRec}>
+                        <div class="slds-truncate" title={record.cantidadRec}>{record.cantidadRec}</div>
+                     </td>
+                     <td data-label={record.pendienteRecibir}>
+                        <div class="slds-truncate" title={record.pendienteRecibir}>
+                            <lightning-input type="number" class="inputQuantity" disabled={record.disabled} name={record.Id} max={record.pendienteRecibir} value={record.pendienteRecibir} variant="label-hidden" onchange={changeInputQuantity}></lightning-input>
+                        </div>
+                     </td>
+                     <td>
+                        <lightning-button variant="brand"
+                           label="Validar rebajo"
+                           title="Validar rebajo"
+                           onclick={openModal}
+                           class="slds-m-left_x-small"
+                           name={record}
+                           if:true={record.productMaterialProp}>
+                        </lightning-button>
+                     </td>   
+                 </tr>
+            </template>
+          </tbody>
+       </table>
+       <template if:true={showSignature}>
+         <c-capture-signature record-id={recordId} button-label="Guardar y registar OC" file-name="Recibido" ids-to-signature={idsToSignature} onclose={closeSignatureModal}></c-capture-signature>
+       </template>
+      </div>
+       <div slot="footer">
+          <lightning-button variant="neutral" label="Cerrar" onclick={closeModal}></lightning-button>
+          <lightning-button variant="brand" label="Registrar recepción" class="slds-m-left_x-small" disabled={disabledReceptionButton} onclick={receptionOrderItems}></lightning-button>
+       </div>
+    </lightning-quick-action-panel>
+  <!--Modal Box Start-->
+   <template if:true={isModalOpen}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="modalSection slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+         <!--Modal Header Start-->
+          <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+              <lightning-icon variant="inverse" onclick={closeModalMaterial} alternative-text="close" icon-name="utility:close" size="small"></lightning-icon>
+            </button>
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Rebajo de producto</h2>
+          </header>
+         <!--Modal Body Start-->
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <lightning-record-edit-form object-api-name="MaterialDeProducto__c" onsubmit={newMaterialProduct}>
+            <lightning-messages> </lightning-messages>
+            <div class="slds-grid">
+               <div class="slds-col slds-size_1-of-3">
+                  <lightning-input-field field-name="Material__c" class="inputCmp" onchange={handleMaterialSelection} required> </lightning-input-field>
+               </div>
+               <div class="slds-col slds-size_1-of-3">
+                  <lightning-input-field field-name="Cantidad__c" required> </lightning-input-field>
+               </div>
+               <div class="slds-col slds-size_1-of-3">
+                  <lightning-button
+                  class="slds-m-top_small"
+                  type="submit"
+                  label="Nuevo Material Producto"
+              >
+              </lightning-button>
+               </div>
+           </div>
+        </lightning-record-edit-form>
+        <div style="max-height: 300px;">
+               <lightning-datatable
+               key-field="Id"
+               data={materialProducts}
+               columns={columnsMaterial}
+               onsave={handleSaveMaterial}
+               draft-values={draftValues}
+               hide-checkbox-column="true"
+               onrowaction={rowAction}>
+               </lightning-datatable>
+         </div>  
+          </div>
+          <!--Modal Footer Start-->
+          <footer class="slds-modal__footer">
+            <lightning-button label="Cancel" onclick={closeModalMaterial}></lightning-button>
+             &nbsp;
+            <lightning-button variant="brand" label="Confirmar rebajo" onclick={reduceMaterial}></lightning-button>
+          </footer>
+        </div>
+      </section>
+      <div class="backdropDiv slds-backdrop slds-backdrop_open"></div>
+    </template>
+ </template>
