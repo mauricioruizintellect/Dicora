@@ -25,8 +25,7 @@ public class CampanaTriggerHandler  extends TriggerHandler {
         
         if(PublicityCampaignService.runOnce){
             PublicityCampaignService.processMaterialProducts(this.newCampanaList,oldCampanaMap);
-        }
-        
+        }  
     }
     
     public void calcularDiferidos(List<Campana__c> campanas){
