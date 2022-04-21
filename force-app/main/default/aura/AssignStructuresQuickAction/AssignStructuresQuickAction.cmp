@@ -1,0 +1,21 @@
+<aura:component implements="force:hasRecordId,lightning:hasPageReference,force:lightningQuickActionWithoutHeader" access="global" >
+     <aura:html tag="style">
+       .cuf-content {
+            padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+            padding: 0rem !important;
+        }    
+        .slds-modal__container{
+            width: 95% !important;
+            max-width: 95% !important;
+            }  
+        .slds-modal__content{
+            overflow-y:hidden !important;
+            height:unset !important;
+            max-height:unset !important;
+        } 
+    </aura:html>
+
+    <c:assignStructures recordId="{!v.recordId}" onclose="{!c.closeQA}" ></c:assignStructures>
+</aura:component>

@@ -1,0 +1,248 @@
+<template>
+    <header class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> Agregar Líneas a Orden de Compra</h1>
+    </header>
+    <template if:true={allData.isProduccion}>
+        <lightning-card icon-name="custom:custom96" title="Ventas agrupadas de la campaña">
+            <lightning-button label={allData.textoBoton} slot="actions" onclick={unidadesExtras} ></lightning-button>
+            <lightning-button label="Producto Individual" slot="actions" onclick={onclicknuevaLOC} class="slds-m-left_x-small" ></lightning-button>
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item padding="around-small" size="12">
+                    <lightning-datatable key-field="id" columns={columns} data={listVentas} onrowselection={selectTable}
+                        onrowaction={onClickEdit}>
+                    </lightning-datatable>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-card>
+        <footer class="slds-modal__footer">
+            <lightning-button label="Agregar a Orden de Compra" class="slds-m-top--medium" variant="brand"
+                disabled={disableBoton} onclick={agregarOrdenCompra}></lightning-button>
+        </footer>
+    </template>
+    <template if:false={allData.isProduccion}>
+        <lightning-card icon-name="standard:product_service_campaign_item" title="Ventas detalladas de la campaña">
+            <lightning-button label={allData.textoBoton} slot="actions" onclick={unidadesExtras} ></lightning-button>
+            <lightning-button label="Producto Individual" slot="actions" onclick={onclicknuevaLOC} class="slds-m-left_x-small" ></lightning-button>
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item padding="around-small" size="12">
+                    <lightning-datatable key-field="id" columns={columns} data={listVentas} onrowselection={selectTable}
+                        onrowaction={onClickEdit}>
+                    </lightning-datatable>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-card>
+        <footer class="slds-modal__footer">
+            <lightning-button label="Agregar a Orden de Compra" class="slds-m-top--medium" variant="brand"
+                disabled={disableBoton} onclick={agregarOrdenCompra}></lightning-button>
+        </footer>
+    </template>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item padding="around-small" size="4">
+            <div class="header-column">
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="8">
+            <div class="header-column" style="text-align: center; font-size:18px;" >
+                <b>Porcentaje aplicado IVA</b> 
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="6">
+            <div class="header-column">
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="2">
+            <div class="header-column">
+                <b>SUBTOTAL</b> <br> {allData.codigoMoneda} {allData.subTotal}
+            </div>
+        </lightning-layout-item>
+    
+        <lightning-layout-item padding="around-small" size="2">
+            <div class="header-column">
+                <b>IVA</b> <br> {allData.codigoMoneda} {allData.iva}
+            </div>
+        </lightning-layout-item>
+    
+        <lightning-layout-item padding="around-small" size="2">
+            <div class="header-column">
+                <b>TOTAL</b>  <br> {allData.codigoMoneda} {allData.totalOC}
+            </div>
+        </lightning-layout-item>
+    
+    </lightning-layout>
+    <lightning-card if:true={allData.OCAgregradas} icon-name="standard:multi_select_checkbox"
+        title="Líneas de Orden de Compra">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-datatable key-field="id" columns={columnsAgregadas} data={listVentasAgregadas}
+                    hide-checkbox-column onrowaction={onClickTableAgreg}>
+                </lightning-datatable>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+    <template if:true={popEditar}>
+        <div role="dialog" tabindex="-1" aria-labelledby="header43"
+            class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content">
+                    <header class="slds-modal__header">
+                        <h1 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate"> Editar venta
+                        </h1>
+                    </header>
+                    <lightning-layout vertical-align="stretch" multiple-rows="true">
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-input label="Cadena" type="text" name="cadena" value={editarVenta.cadena}
+                                disabled>
+                            </lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-input label="Formato" type="text" name="formato" value={editarVenta.formato}
+                                disabled>
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <lightning-layout vertical-align="stretch" multiple-rows="true">
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-input label="Producto" type="text" name="producto" value={editarVenta.producto}
+                                disabled>
+                            </lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-combobox name="medida" label="Medida"
+                                value={editarVenta.medidaId}  options={editarVenta.listMedidas}
+                                onchange={handleChange}  >
+                            </lightning-combobox>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <lightning-layout if:false={allData.isproduccion} vertical-align="stretch" multiple-rows="true">
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-input label="Sitio" type="text" name="sitio" value={editarVenta.sitio}
+                                disabled>
+                            </lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <lightning-layout vertical-align="stretch" multiple-rows="true">
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-combobox name="arte" label="Arte"
+                                value={editarVenta.arteId} placeholder="Select un arte" options={editarVenta.listArtes}
+                                onchange={handleChange}>
+                            </lightning-combobox>
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-input label="Cantidad" type="number" name="cantidad" value={editarVenta.cantidad}
+                                onchange={handleChange}>
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <lightning-layout vertical-align="stretch" multiple-rows="true">
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-input label="Tarifa" type="decimal" name="tarifa" value={editarVenta.tarifa}
+                                onblur={handleChange} disabled={editarVenta.seleccionado}>
+                            </lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-input label="Total" type="decimal" name="total" value={total} disabled>
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <lightning-layout vertical-align="stretch" multiple-rows="true">
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+                            <lightning-textarea label="Requerimientos Especiales" name="requerimientosEspeciales"
+                                value={editarVenta.requerimientosEspeciales} onchange={handleChange}>
+                            </lightning-textarea>
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="6">
+
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Salir" title="Salir" onclick={cancel} class="slds-m-left_x-small">
+                    </lightning-button>
+                    <lightning-button label="Guardar" title="Guardar" onclick={guardarPop} variant="brand"
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </template>
+
+    <template if:true={popPorcentaje}>
+        <div role="dialog" tabindex="-1" aria-labelledby="header43"
+            class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content">
+                    <header class="slds-modal__header">
+                        <h1 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate"> Cambio de Precio
+                        </h1>
+                    </header>
+                    <lightning-layout vertical-align="stretch" multiple-rows="true">
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="12">
+                            <p>Detalle la Razon por la cual cambio el precio de la venta</p>
+                            <lightning-textarea label="" name="cambioPrecio"
+                                value={editarVenta.comentariosNotif} onchange={handleChange}>
+                            </lightning-textarea>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Salir" title="Salir" onclick={cancel} class="slds-m-left_x-small">
+                    </lightning-button>
+                    <lightning-button label="Guardar" title="Guardar" onclick={guardarPop} variant="brand"
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </template>
+
+    <template if:true={popLineaOC}>
+        <div role="dialog" tabindex="-1" aria-labelledby="header43"
+            class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content">
+                    <c-add-Lines-To-Order-Var record-id={recordId} mostrar-agreg="false" ></c-add-Lines-To-Order-Var>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Salir" title="Salir" onclick={init} class="slds-m-left_x-small">
+                    </lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </template>
+    <!--template>
+        <div role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+               <div class="slds-modal__content">
+                  <c-lwc-Additional quoteid={recordId}></c-lwc-Additional>
+               </div>
+                  <footer class="slds-modal__footer">
+                     <lightning-button label="Salir" title="Salir" onclick={cancel}  ></lightning-button>
+                  </footer>
+            </div>
+         </div>
+         <div class="slds-backdrop slds-backdrop--open"></div>
+    </template-->
+
+
+
+    <template if:true={showSpinner}>
+        <div id="activityIndicator" class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <span class="slds-assistive-text">Loading, Please Wait...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </template>
+</template>

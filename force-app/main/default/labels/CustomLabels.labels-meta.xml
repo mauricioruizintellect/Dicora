@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>PorcentajeUnidadesExtras</fullName>
+        <language>es</language>
+        <protected>false</protected>
+        <shortDescription>Porcentaje Unidades Extras</shortDescription>
+        <value>50</value>
+    </labels>
+</CustomLabels>
