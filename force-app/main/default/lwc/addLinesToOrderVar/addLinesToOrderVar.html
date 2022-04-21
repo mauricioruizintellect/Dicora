@@ -1,0 +1,286 @@
+<template>
+    <header class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> Agregue Líneas a la orden de
+            compra</h1>
+    </header>
+    <lightning-card icon-name="standard:product_service_campaign_item" title="Agregue una nueva línea">
+        <lightning-button label={allData.textoBoton} slot="actions" onclick={onclickSitio} ></lightning-button>
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item if:true={mostrarDataTabla} padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-record-edit-form record-id="" object-api-name="LineaOrdenDeCompra__c">
+                        <lightning-input-field field-name="Contrato__c" name="contrato" label="Contrato"
+                            value={allData.contrato} onchange={handleChange}  >
+                        </lightning-input-field>
+                    </lightning-record-edit-form>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-record-edit-form record-id="" object-api-name="LineaOrdenDeCompra__c">
+                        <lightning-input-field field-name="Cadena__c" name="cadena" onchange={handleChange}>
+                        </lightning-input-field>
+                    </lightning-record-edit-form>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                   <lightning-combobox name="formato" label="Formato" value={allData.formato} onchange={handleChange}
+                    options={allData.listFormatos} >
+                    </lightning-combobox>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-record-edit-form record-id="" object-api-name="LineaOrdenDeCompra__c">
+                        <lightning-input-field field-name="Product__c" name="producto" onchange={handleChange}>
+                        </lightning-input-field>
+                    </lightning-record-edit-form>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item if:true={allData.mostrarSitio} padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-combobox name="sitio" label="Sitio" value={allData.sitio} onchange={handleChange}
+                    options={allData.listSitios}>
+                    </lightning-combobox>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-combobox name="medida" label="Medida" value={allData.medida} onchange={handleChange}
+                    options={allData.listMedidas} >
+                    </lightning-combobox>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-combobox name="arte" label="Arte" value={allData.arte} onchange={handleChange} 
+                    options={allData.listArtes} >
+                    </lightning-combobox>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-input name="cantidad" type="number" label="Cantidad" value={allData.cantidad} onchange={handleChange}>
+                    </lightning-input>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-input name="tarifa" type="decimal" label="Tarifa" value={allData.tarifa} onchange={handleChange}  onblur={calcularPorcentaje}>
+                    </lightning-input>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    Total <br><br>
+                    {allData.codigoMoneda} {allData.total}
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="4">
+                <div class="header-column">
+                    <lightning-textarea name="requerimientosEspeciales" label="Requerimientos Especiales"
+                        value={allData.requerimientosEspeciales} placeholder="Escriba el Requerimientos"
+                        onchange={handleChange}></lightning-textarea>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+
+        <footer class="slds-modal__footer">
+            <lightning-button label="Agregar a Orden de Compra" title="Agregar a Orden de Compra" onclick={agregarOrdenCompra} variant="brand"
+                class="slds-m-left_x-small" disabled={allData.disabledBoton} ></lightning-button>
+        </footer>
+    </lightning-card>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item padding="around-small" size="4">
+            <div class="header-column">
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="8">
+            <div class="header-column" style="text-align: center; font-size:18px;" >
+                <b>Porcentaje aplicado IVA</b> 
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="6">
+            <div class="header-column">
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="2">
+            <div class="header-column">
+                <b>SUBTOTAL</b> <br> {allData.codigoMoneda} {allData.subTotal}
+            </div>
+        </lightning-layout-item>
+    
+        <lightning-layout-item padding="around-small" size="2">
+            <div class="header-column">
+                <b>IVA</b> <br> {allData.codigoMoneda} {allData.iva}
+            </div>
+        </lightning-layout-item>
+    
+        <lightning-layout-item padding="around-small" size="2">
+            <div class="header-column">
+                <b>TOTAL</b>  <br> {allData.codigoMoneda} {allData.totalOC}
+            </div>
+        </lightning-layout-item>
+    
+    </lightning-layout>
+    
+    <lightning-card if:true={mostrarDataTabla} icon-name="standard:multi_select_checkbox" title="Líneas de Orden de Compra">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-datatable key-field="id" columns={columns} data={allData.listLineasOC}
+                    hide-checkbox-column onrowaction={onClickTableAgreg}>
+                </lightning-datatable>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+
+    <template if:true={popEditar}>
+        <div role="dialog" tabindex="-1" aria-labelledby="header43"
+            class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content">
+                    <header class="slds-modal__header">
+                        <h1 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate"> Editar Línea de Orden de Compra
+                        </h1>
+                    </header>
+                    <lightning-layout multiple-rows="true">
+
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-input label="Contrato" value={editarLOC.contrato} onchange={handleChange} disabled >
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-input label="Cadena" value={editarLOC.cadena} onchange={handleChange} disabled >
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-input label="Formato" value={editarLOC.formato} onchange={handleChange} disabled >
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-input label="Producto" value={editarLOC.producto} onchange={handleChange} disabled >
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-input label="Sitio" value={editarLOC.sitio} onchange={handleChange} disabled >
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-input label="Medida" value={editarLOC.medida} onchange={handleChange} disabled >
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-input label="Arte" value={editarLOC.arte} onchange={handleChange} disabled >
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-input label="Cantidad" value={editarLOC.cantidad} onchange={handleChangeEdit} name="cantidad" >
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-input label="Tarifa" value={editarLOC.tarifa} onchange={handleChange} disabled >
+                                </lightning-input>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                Total <br><br>
+                                {allData.codigoMoneda} {editarLOC.total}
+                            </div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item padding="around-small" size="6">
+                            <div class="header-column">
+                                <lightning-textarea name="requerimientosEspeciales" label="Requerimientos Especiales"
+                                value={editarLOC.requerimientosEspeciales} disabled
+                                onchange={handleChange}></lightning-textarea>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Salir" title="Salir" onclick={salir} class="slds-m-left_x-small">
+                    </lightning-button>
+                    <lightning-button label="Guardar" title="Guardar" onclick={editarRecord} variant="brand"
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </template>
+
+    <template if:true={allData.popPorcentaje}>
+        <div role="dialog" tabindex="-1" aria-labelledby="header43"
+            class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content">
+                    <header class="slds-modal__header">
+                        <h1 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate"> Cambio de Precio
+                        </h1>
+                    </header>
+                    <lightning-layout vertical-align="stretch" multiple-rows="true">
+                        <lightning-layout-item flexibility="auto" padding="around-small" size="12">
+                            <p>Detalle la razón por la cual cambio el precio de la venta</p>
+                            <lightning-textarea label="" name="cambioPrecio"
+                                value={allData.comentariosNotif} onchange={handleChange}>
+                            </lightning-textarea>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Salir" title="Salir" onclick={salir} class="slds-m-left_x-small">
+                    </lightning-button>
+                    <lightning-button label="Guardar" title="Guardar" onclick={agregarOrdenCompra} variant="brand"
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </template>
+
+    <template if:true={showSpinner}>
+        <div id="activityIndicator" class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <span class="slds-assistive-text">Loading, Please Wait...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </template>
+
+
+</template>

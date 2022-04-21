@@ -1,0 +1,64 @@
+<template>
+    <header class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> Asignar Estructuras</h1>
+    </header>
+    <h1 class="slds-text-heading_medium slds-hyphenate" style="margin-left: 20px;"> Asignaciones Disponibles:
+        {allData.asignacionesDisponibles}</h1>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item padding="around-small" size="2">
+            <lightning-record-edit-form record-id="" object-api-name="Medio__c">
+                <lightning-input-field field-name="Sitio__c" name="sitio" onchange={eventOnchange}>
+                </lightning-input-field>
+            </lightning-record-edit-form>
+            <!--div class="header-column">
+                <lightning-combobox id="comboboxSitios" name="sitio" label="Sitio" options={allData.listSitios}
+                    value={allData.sitioSelecionado} onchange={eventOnchange} required>
+                </lightning-combobox>
+            </div-->
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="2">
+            <div class="header-column">
+                <lightning-combobox id="comboboxMedios" name="medio" label="Medio" options={listMedios}
+                    onchange={eventOnchange} value={allData.medioSelecionado} required>
+                </lightning-combobox>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="2">
+            <div class="header-column">
+                <lightning-combobox id="comboboxInstalador" name="instalador" label="Instalador"
+                    options={allData.listUsuarios} onchange={eventOnchange} value={allData.usuarioSelecionado} required>
+                </lightning-combobox>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="2">
+            <div class="header-column">
+                <lightning-combobox id="comboboxProveedor" name="proveedor" label="Proveedor"
+                    options={allData.listProveedores} onchange={eventOnchange} value={allData.proveedorSelecionado}>
+                </lightning-combobox>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="2">
+            <lightning-input type="date" name="fecha" label="Fecha" value={allData.fecha} onchange={eventOnchange}
+                required></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="2">
+            <lightning-input type="number" name="costo" label="Costo" value={allData.costo} onchange={eventOnchange}
+                required></lightning-input>
+        </lightning-layout-item>
+    </lightning-layout>
+    <div style="height: 250px;"></div>
+    <footer class="slds-modal__footer">
+        <lightning-button label="Asignar" disabled={allData.disabledBoton} class="slds-m-top--medium" variant="brand"
+            onclick={onClickSave}></lightning-button>
+    </footer>
+
+    <template if:true={showSpinner}>
+        <div id="activityIndicator" class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <span class="slds-assistive-text">Loading, Please Wait...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </template>
+</template>

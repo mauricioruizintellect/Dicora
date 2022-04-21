@@ -1,0 +1,28 @@
+<template>
+    <header class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> Ordenes de trabajo de estructura</h1>
+    </header>
+
+    <lightning-card icon-name="standard:multi_picklist" title="Ordenes de trabajo">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-datatable key-field="id" columns={columns} data={dataTable} onrowselection={selectTable} >
+                </lightning-datatable>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+    <footer class="slds-modal__footer">
+        <lightning-button label="Guardar" class="slds-m-top--medium" variant="brand" disabled={disabledSave}
+            onclick={saveData}></lightning-button>
+    </footer>
+
+    <template if:true={showSpinner}>
+        <div id="activityIndicator" class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <span class="slds-assistive-text">Loading, Please Wait...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </template>
+</template>

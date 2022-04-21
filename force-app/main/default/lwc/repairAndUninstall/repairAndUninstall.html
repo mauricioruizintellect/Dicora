@@ -1,0 +1,72 @@
+<template>
+    <header class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> Reparación y Desinstalación</h1>
+    </header>
+    <lightning-card icon-name="standard:filter" title="Filtros">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item padding="around-small" size="5">
+                <div class="header-column">
+                    <lightning-combobox id="comboboxMedios" name="medio" label="Medio"
+                        options={allData.listMedios} value={allData.medio} onchange={eventOnchange}>
+                    </lightning-combobox>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="5">
+                <div class="header-column">
+                    <lightning-combobox id="comboboSitios" name="sitio" label="Sitio" options={allData.listSitios}
+                        value={allData.sitio} onchange={eventOnchange}>
+                    </lightning-combobox>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    <br />
+                    <lightning-button label="Filtrar" class="slds-m-top--medium" variant="brand" onclick={filtrar}>
+                    </lightning-button>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="4">
+                <div class="header-column">
+                    <lightning-input id="fecha" name="fecha" label="Fecha" type="date"
+                    value={allData.fecha} onchange={eventOnchange}>
+                    </lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="4">
+                <div class="header-column">
+                    <lightning-input id="costo" name="costo" label="Costo" type="number"
+                    value={allData.costo} onchange={eventOnchange}>
+                    </lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="4">
+                <div class="header-column">
+                    <lightning-textarea id="detalle" name="detalle" label="Detalle de Reparación" type="textarea"
+                    value={allData.detalle} onchange={eventOnchange}></lightning-textarea>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+
+    <lightning-card icon-name="standard:multi_picklist" title="Estructura en sitio activas">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-datatable key-field="id" hide-checkbox-column columns={columns} data={dataTable}
+                    onrowaction={selectTable}>
+                </lightning-datatable>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+    <div style="height: 20px;">
+    </div>
+
+    <template if:true={showSpinner}>
+        <div id="activityIndicator" class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <span class="slds-assistive-text">Loading, Please Wait...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </template>
+</template>

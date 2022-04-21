@@ -1,0 +1,155 @@
+<template>
+    <header class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> Agregue Instalaciones a la orden de
+            compra</h1>
+    </header>
+    <lightning-card icon-name="standard:product_service_campaign_item" title="Agregar Instalaciones">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-input type="number" name="cantidad" label="Cantidad" value={allData.cantidad}
+                    onchange={eventOnchange}></lightning-input>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="4">
+                <div class="header-column">
+                    <lightning-textarea name="detalle" label="Detalle" value={allData.detalle} placeholder="Escriba el detalle" onchange={eventOnchange} ></lightning-textarea>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    <lightning-input type="number" name="precio" label="Precio" value={allData.precio} 
+                        onchange={eventOnchange}></lightning-input>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2">
+                <div class="header-column">
+                    Total <br/><br/>
+                    {allData.codigoMoneda} {allData.total} 
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="2" style="margin-top: 19px;text-align: center;">
+                <lightning-button label="Agregar" class="slds-m-top--medium" variant="brand"
+                    disabled={allData.disabledBoton} onclick={agregarOrdenCompra}></lightning-button>
+            </lightning-layout-item>
+
+        </lightning-layout>
+    </lightning-card>
+
+<lightning-layout multiple-rows="true">
+    <lightning-layout-item padding="around-small" size="4">
+        <div class="header-column">
+        </div>
+    </lightning-layout-item>
+    <lightning-layout-item padding="around-small" size="8">
+        <div class="header-column" style="text-align: center; font-size:18px;" >
+            <b>Porcentaje aplicado IVA</b> 
+        </div>
+    </lightning-layout-item>
+    <lightning-layout-item padding="around-small" size="6">
+        <div class="header-column">
+        </div>
+    </lightning-layout-item>
+    <lightning-layout-item padding="around-small" size="2">
+        <div class="header-column">
+            <b>SUBTOTAL</b> <br> {allData.codigoMoneda} {allData.subTotal}
+        </div>
+    </lightning-layout-item>
+
+    <lightning-layout-item padding="around-small" size="2">
+        <div class="header-column">
+            <b>IVA</b> <br> {allData.codigoMoneda} {allData.iva}
+        </div>
+    </lightning-layout-item>
+
+    <lightning-layout-item padding="around-small" size="2">
+        <div class="header-column">
+            <b>TOTAL</b>  <br> {allData.codigoMoneda} {allData.totalOC}
+        </div>
+    </lightning-layout-item>
+
+</lightning-layout>
+
+
+
+
+
+    <lightning-card icon-name="standard:multi_select_checkbox"
+        title="Líneas de Orden de Compra" style="text-align: center;" >
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" aria-label="linea de ordenes" if:false={showSignature}>
+            <thead>
+                <tr class="slds-line-height_reset">
+                   <th class="" scope="col">
+                      <div class="slds-truncate" title="Material">Cantidad</div>
+                   </th>
+                   <th class="" scope="col">
+                      <div class="slds-truncate" title="Cantidad">Detalle</div>
+                   </th>
+                   <th class="" scope="col">
+                      <div class="slds-truncate" title="Precio">Precio</div>
+                   </th>
+                   <th class="" scope="col">
+                      <div class="slds-truncate" title="Total">Total</div>
+                   </th>
+                   <th class="" scope="col">
+                      <div class="slds-truncate" title="Editar"></div>
+                   </th>
+                   <th class="" scope="col">
+                      <div class="slds-truncate" title="Eliminar"></div>
+                   </th>
+                </tr>
+             </thead>
+             <tbody>
+               <template for:each={allData.listInstalacionesAgr} for:item="record">
+                   <tr class="slds-hint-parent" key={record.id}>
+                       <td data-label={record.matrial}>
+                          <div class="slds-truncate" title={record.cantidad}><lightning-input type="number" name={record.id} value={record.cantidad} variant="label-hidden" onchange={eventOnchangeCantiAgr}></lightning-input></div>
+                       </td>
+                       <td data-label={record.precio}>
+                           <div class="slds-truncate" title={record.precio}><lightning-textarea name={record.id} label="Detalle" value={record.detalle} placeholder="Escriba el detalle" onchange={eventOnchangeDetaAgr} ></lightning-textarea></div>
+                        </td>
+                        <td data-label={record.cantidad}>
+                            <lightning-input type="currency"   name={record.id} value={record.precio} variant="label-hidden" onchange={eventOnchangePrecioAgr}></lightning-input>
+                        </td>
+                        <td data-label={record.total}>
+                           <div class="slds-truncate" title={record.sitio}>{record.codigoMoneda} {record.total}</div>
+                        </td>
+                        <td data-label={record.medida}>
+                           <lightning-button variant="brand"
+                           label="Editar"
+                           title="Edital"
+                           onclick={editarRegistro}
+                           class="slds-m-left_x-small"
+                           name={record.id}>
+                        </lightning-button>
+                        </td>
+                        <td data-label={record.arte}>
+                            <lightning-button variant="brand"
+                            label="Eliminar"
+                            title="Eliminar"
+                            onclick={eliminarRegistro}
+                            class="slds-m-left_x-small"
+                            name={record.id}>
+                         </lightning-button>
+                        </td>
+                    </tr>
+               </template>
+             </tbody>
+          </table>
+
+    </lightning-card>
+    <br><br>
+    <template if:true={showSpinner}>
+        <div id="activityIndicator" class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <span class="slds-assistive-text">Loading, Please Wait...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </template>
+</template>
