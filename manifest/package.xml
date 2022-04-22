@@ -12,6 +12,7 @@
 		<name>ApexClass</name>
 	</types>
 	<types>
+		<members>OrderSendPdf</members>
 		<members>PrintVoucher</members>
 		<name>ApexPage</name>
 	</types>
@@ -21,7 +22,11 @@
 		<name>ApexTrigger</name>
 	</types>
 	<types>
+		<members>Campana__c.EstadoDeCampana__c</members>
+		<members>Empresa__c.Direccion__c</members>
+		<members>Empresa__c.Telefono__c</members>
 		<members>EntregaDeProducto__c.CampanaPublicitaria__c</members>
+		<members>LineaOrdenDeCompra__c.Cadena__c</members>
 		<members>LineaOrdenDeCompra__c.CantidadRecibida__c</members>
 		<members>LineaOrdenDeCompra__c.Contrato__c</members>
 		<members>LineaOrdenDeCompra__c.Detalle__c</members>
@@ -29,8 +34,25 @@
 		<members>LineaOrdenDeCompra__c.Product__c</members>
 		<members>LineaOrdenDeCompra__c.RazonDiferencia__c</members>
 		<members>LineaOrdenDeCompra__c.UltimaCantidadRecibida__c</members>
+		<members>Material__c.ActivarNotificacion__c</members>
+		<members>OdenDeCompra__c.Cadena__c</members>
+		<members>OdenDeCompra__c.CampanaPublicitaria__c</members>
+		<members>OdenDeCompra__c.Empresa__c</members>
+		<members>OdenDeCompra__c.IDUltimaFirmaRecibido__c</members>
+		<members>OdenDeCompra__c.SimboloMoneda__c</members>
+		<members>ProductoDeCampana__c.CampanaPublicitaria__c</members>
+		<members>ProductoDeCampana__c.CantidadPendiente__c</members>
+		<members>ProductoDeCampana__c.CantidadRecibida__c</members>
 		<members>Venta__c.MedioPublicitario__c</members>
 		<name>CustomField</name>
+	</types>
+	<types>
+		<members>ListEmailSupProduction</members>
+		<name>CustomLabel</name>
+	</types>
+	<types>
+		<members>FirmaEncargadoOperaciones</members>
+		<name>StaticResource</name>
 	</types>
 	<version>53.0</version>
 </Package>

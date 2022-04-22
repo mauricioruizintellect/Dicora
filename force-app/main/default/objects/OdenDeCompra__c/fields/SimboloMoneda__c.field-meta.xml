@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SimboloMoneda__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(CurrencyIsoCode,
+&apos;CRC&apos;, &apos;₡&apos;,
+&apos;NIO&apos;,&apos;C$&apos;,
+&apos;HNL&apos;, &apos;L.&apos;,
+&apos;GTQ&apos;,&apos;Q&apos;,
+&apos;$&apos;)</formula>
+    <label>Símbolo moneda</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
