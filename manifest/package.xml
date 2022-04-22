@@ -1,120 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
+		<members>CampanaTriggerHandler</members>
+		<members>CampanaTriggerHandler_Test</members>
+		<members>OrderReceptionController</members>
+		<members>OrderReceptionControllerTest</members>
+		<members>PublicityCampaignService</members>
+		<members>PurchasePriceService</members>
+		<members>PurchasePriceTriggerHandler</members>
+		<members>PurchasePriceTriggerTest</members>
+		<name>ApexClass</name>
+	</types>
+	<types>
+		<members>PrintVoucher</members>
+		<name>ApexPage</name>
+	</types>
+	<types>
 		<members>CampanaTrigger</members>
 		<members>PurchasePriceTrigger</members>
 		<name>ApexTrigger</name>
 	</types>
 	<types>
-		<members>CampanaTriggerHandler</members>
-		<members>CampanaTriggerHandler_Test</members>
-		<members>PublicityCampaignService</members>
-		<members>PurchasePriceTriggerHandler</members>
-		<members>PurchasePriceTriggerTest</members>
-		<members>ControllerAddLinesToOrder</members>
-		<members>ControllerAddLinesToOrderIns</members>
-		<members>ControllerAddLinesToOrderInsTest</members>
-		<members>ControllerAddLinesToOrderMat</members>
-		<members>ControllerAddLinesToOrderMatTest</members>
-		<members>ControllerAddLinesToOrderTest</members>
-		<members>ControllerAddLinesToOrderVar</members>
-		<members>ControllerAddLinesToOrderVarTest</members>
-		<members>ControllerAssignStructures</members>
-		<members>ControllerAssignStructuresTest</members>
-		<members>ControllerAssociateWorkOrder</members>
-		<members>ControllerAssociateWorkOrderTest</members>
-		<members>ControllerRepairAndUninstall</members>
-		<members>ControllerRepairAndUninstallTest</members>
-		<members>OrderReceptionController</members>
-		<members>OrderReceptionControllerTest</members>
-		<name>ApexClass</name>
-	</types>
-	<types>
-		<members>AddLinesToOrderInsQuickAction</members>
-		<members>AddLinesToOrderMatQuickAction</members>
-		<members>AddLinesToOrderQuickAction</members>
-		<members>AddLinesToOrderVarQuickAction</members>
-		<members>AssignStructuresQuickAction</members>
-		<members>AssociateWorkOrdersQuickAction</members>
-		<members>RepairAndUninstallQuickAction</members>
-		<name>AuraDefinitionBundle</name>
-	</types>
-	<types>
-		<members>EstructuraEnSItio__c.Estado__c</members>
-		<members>EstructuraEnSItio__c.Estructura__c</members>
-		<members>EstructuraEnSItio__c.Medio__c</members>
-		<members>EstructuraEnSItio__c.Sitio__c</members>
-		<members>Estructura__c.CantidadBodega__c</members>
-		<members>Estructura__c.CantidadColocada__c</members>
-		<members>Estructura__c.CantidadTotal__c</members>
-		<members>Estructura__c.Codigo__c</members>
-		<members>Estructura__c.Dimensiones__c</members>
-		<members>Estructura__c.Pais__c</members>
-		<members>Estructura__c.Producto__c</members>
+		<members>EntregaDeProducto__c.CampanaPublicitaria__c</members>
+		<members>LineaOrdenDeCompra__c.CantidadRecibida__c</members>
+		<members>LineaOrdenDeCompra__c.Contrato__c</members>
+		<members>LineaOrdenDeCompra__c.Detalle__c</members>
+		<members>LineaOrdenDeCompra__c.PendienteRecibir__c</members>
 		<members>LineaOrdenDeCompra__c.Product__c</members>
-		<members>OrdenTrabajoDeEstructura__c.Costo__c</members>
-		<members>OrdenTrabajoDeEstructura__c.DetalleReparecion__c</members>
-		<members>OrdenTrabajoDeEstructura__c.Estado__c</members>
-		<members>OrdenTrabajoDeEstructura__c.EstructuraEnSitio__c</members>
-		<members>OrdenTrabajoDeEstructura__c.FechaCompletado__c</members>
-		<members>OrdenTrabajoDeEstructura__c.FechaPrevista__c</members>
-		<members>OrdenTrabajoDeEstructura__c.Instalador__c</members>
-		<members>OrdenTrabajoDeEstructura__c.Medio__c</members>
-		<members>OrdenTrabajoDeEstructura__c.OrdenCompra__c</members>
-		<members>OrdenTrabajoDeEstructura__c.Proveedor__c</members>
-		<members>OrdenTrabajoDeEstructura__c.Tipo__c</members>
-		<members>User.PorcentajeDeCambioDeTarijaEnOC__c</members>
+		<members>LineaOrdenDeCompra__c.RazonDiferencia__c</members>
+		<members>LineaOrdenDeCompra__c.UltimaCantidadRecibida__c</members>
+		<members>Venta__c.MedioPublicitario__c</members>
 		<name>CustomField</name>
-	</types>
-	<types>
-		<members>PorcentajeUnidadesExtras</members>
-		<name>CustomLabel</name>
-	</types>
-	<types>
-		<members>WebAndMobile</members>
-		<name>CustomNotificationType</name>
-	</types>
-	<types>
-		<members>EstructuraEnSItio__c</members>
-		<members>Estructura__c</members>
-		<members>OrdenTrabajoDeEstructura__c</members>
-		<name>CustomObject</name>
-	</types>
-	<types>
-		<members>OrdenCompraPage</members>
-		<name>FlexiPage</name>
-	</types>
-	<types>
-		<members>EstructuraEnSItio__c-Formato Estructura en Sitio</members>
-		<members>Estructura__c-Formato Estructura</members>
-		<members>LineaOrdenDeCompra__c-Formato Línea Orden de Compra</members>
-		<members>OdenDeCompra__c-Orden de Compra Estructuras</members>
-		<members>OrdenTrabajoDeEstructura__c-Formato Orden de Trabajo de Estructura</members>
-		<name>Layout</name>
-	</types>
-	<types>
-		<members>addLinesToOrder</members>
-		<members>addLinesToOrderIns</members>
-		<members>addLinesToOrderMat</members>
-		<members>addLinesToOrderVar</members>
-		<members>assignStructures</members>
-		<members>associateWorkOrder</members>
-		<members>repairAndUninstall</members>
-		<name>LightningComponentBundle</name>
-	</types>
-	<types>
-		<members>Estructura__c.AsignarEstructuras</members>
-		<members>Estructura__c.ReparacionDesinstalacion</members>
-		<members>OdenDeCompra__c.AgregarLineasAOrden</members>
-		<members>OdenDeCompra__c.AsociarOrdenesTrabajo</members>
-		<members>OdenDeCompra__c.addLinesToOrderIns</members>
-		<members>OdenDeCompra__c.addLinesToOrderMat</members>
-		<members>OdenDeCompra__c.addLinesToOrderVar</members>
-		<name>QuickAction</name>
-	</types>
-	<types>
-		<members>custommodalcss</members>
-		<name>StaticResource</name>
 	</types>
 	<version>53.0</version>
 </Package>

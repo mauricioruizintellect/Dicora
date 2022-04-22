@@ -87,4 +87,7 @@ private class CampanaTriggerHandler_Test {
         Campana__c updateCamp = new Campana__c(Id = c.id, EstadoDeCampana__c = '03 En Proceso de Artes');
         update updateCamp;
     }
+    
+    
+
 }
