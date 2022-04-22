@@ -25,6 +25,8 @@
 		<members>ControllerAssociateWorkOrderTest</members>
 		<members>ControllerRepairAndUninstall</members>
 		<members>ControllerRepairAndUninstallTest</members>
+		<members>OrderReceptionController</members>
+		<members>OrderReceptionControllerTest</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
