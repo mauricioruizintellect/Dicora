@@ -3,6 +3,20 @@
 	<types>
 		<members>CampanaTriggerHandler</members>
 		<members>CampanaTriggerHandler_Test</members>
+		<members>ControllerAddLinesToOrder</members>
+		<members>ControllerAddLinesToOrderIns</members>
+		<members>ControllerAddLinesToOrderInsTest</members>
+		<members>ControllerAddLinesToOrderMat</members>
+		<members>ControllerAddLinesToOrderMatTest</members>
+		<members>ControllerAddLinesToOrderTest</members>
+		<members>ControllerAddLinesToOrderVar</members>
+		<members>ControllerAddLinesToOrderVarTest</members>
+		<members>ControllerAssignStructures</members>
+		<members>ControllerAssignStructuresTest</members>
+		<members>ControllerAssociateWorkOrder</members>
+		<members>ControllerAssociateWorkOrderTest</members>
+		<members>ControllerRepairAndUninstall</members>
+		<members>ControllerRepairAndUninstallTest</members>
 		<members>OrderReceptionController</members>
 		<members>OrderReceptionControllerTest</members>
 		<members>PublicityCampaignService</members>
@@ -22,7 +36,14 @@
 		<name>ApexTrigger</name>
 	</types>
 	<types>
+		<members>AddLinesToOrderInsQuickAction</members>
+		<members>AddLinesToOrderMatQuickAction</members>
+		<members>AddLinesToOrderQuickAction</members>
+		<members>AddLinesToOrderVarQuickAction</members>
+		<members>AssignStructuresQuickAction</members>
+		<members>AssociateWorkOrdersQuickAction</members>
 		<members>MaterialReceptionAura</members>
+		<members>RepairAndUninstallQuickAction</members>
 		<name>AuraDefinitionBundle</name>
 	</types>
 	<types>
@@ -31,6 +52,17 @@
 		<members>Empresa__c.Telefono__c</members>
 		<members>EntregaDeProduccion__c.RecibidoPorLista__c</members>
 		<members>EntregaDeProducto__c.CampanaPublicitaria__c</members>
+		<members>EstructuraEnSItio__c.Estado__c</members>
+		<members>EstructuraEnSItio__c.Estructura__c</members>
+		<members>EstructuraEnSItio__c.Medio__c</members>
+		<members>EstructuraEnSItio__c.Sitio__c</members>
+		<members>Estructura__c.CantidadBodega__c</members>
+		<members>Estructura__c.CantidadColocada__c</members>
+		<members>Estructura__c.CantidadTotal__c</members>
+		<members>Estructura__c.Codigo__c</members>
+		<members>Estructura__c.Dimensiones__c</members>
+		<members>Estructura__c.Pais__c</members>
+		<members>Estructura__c.Producto__c</members>
 		<members>LineaOrdenDeCompra__c.Cadena__c</members>
 		<members>LineaOrdenDeCompra__c.CantidadRecibida__c</members>
 		<members>LineaOrdenDeCompra__c.Contrato__c</members>
@@ -38,7 +70,9 @@
 		<members>LineaOrdenDeCompra__c.PendienteRecibir__c</members>
 		<members>LineaOrdenDeCompra__c.Product__c</members>
 		<members>LineaOrdenDeCompra__c.RazonDiferencia__c</members>
+		<members>LineaOrdenDeCompra__c.Sitio__c</members>
 		<members>LineaOrdenDeCompra__c.UltimaCantidadRecibida__c</members>
+		<members>LineaOrdenDeCompra__c.Venta__c</members>
 		<members>Material__c.ActivarNotificacion__c</members>
 		<members>Material__c.CantidadAMano__c</members>
 		<members>OdenDeCompra__c.Cadena__c</members>
@@ -46,39 +80,88 @@
 		<members>OdenDeCompra__c.Empresa__c</members>
 		<members>OdenDeCompra__c.IDUltimaFirmaRecibido__c</members>
 		<members>OdenDeCompra__c.SimboloMoneda__c</members>
+		<members>OrdenTrabajoDeEstructura__c.Costo__c</members>
+		<members>OrdenTrabajoDeEstructura__c.DetalleReparecion__c</members>
+		<members>OrdenTrabajoDeEstructura__c.Estado__c</members>
+		<members>OrdenTrabajoDeEstructura__c.EstructuraEnSitio__c</members>
+		<members>OrdenTrabajoDeEstructura__c.FechaCompletado__c</members>
+		<members>OrdenTrabajoDeEstructura__c.FechaPrevista__c</members>
+		<members>OrdenTrabajoDeEstructura__c.Instalador__c</members>
+		<members>OrdenTrabajoDeEstructura__c.Medio__c</members>
+		<members>OrdenTrabajoDeEstructura__c.OrdenCompra__c</members>
+		<members>OrdenTrabajoDeEstructura__c.Proveedor__c</members>
+		<members>OrdenTrabajoDeEstructura__c.Tipo__c</members>
 		<members>ProductoDeCampana__c.CampanaPublicitaria__c</members>
 		<members>ProductoDeCampana__c.CantidadPendiente__c</members>
 		<members>ProductoDeCampana__c.CantidadRecibida__c</members>
+		<members>User.PorcentajeDeCambioDeTarijaEnOC__c</members>
 		<members>Venta__c.MedioPublicitario__c</members>
 		<name>CustomField</name>
 	</types>
 	<types>
 		<members>ListEmailSupProduction</members>
+		<members>PorcentajeUnidadesExtras</members>
 		<members>plantillaEmailOC</members>
 		<name>CustomLabel</name>
+	</types>
+	<types>
+		<members>WebAndMobile</members>
+		<name>CustomNotificationType</name>
+	</types>
+	<types>
+		<members>EstructuraEnSItio__c</members>
+		<members>Estructura__c</members>
+		<members>OrdenTrabajoDeEstructura__c</members>
+		<name>CustomObject</name>
 	</types>
 	<types>
 		<members>unfiled$public/PlantillaCambioCantidadMano</members>
 		<name>EmailTemplate</name>
 	</types>
 	<types>
+		<members>OrdenCompraPage</members>
+		<name>FlexiPage</name>
+	</types>
+	<types>
 		<members>FlujoNotificacionCantidadMano</members>
 		<name>Flow</name>
 	</types>
 	<types>
+		<members>EstructuraEnSItio__c-Formato Estructura en Sitio</members>
+		<members>Estructura__c-Formato Estructura</members>
+		<members>LineaOrdenDeCompra__c-Formato Línea Orden de Compra</members>
+		<members>OdenDeCompra__c-Orden de Compra Estructuras</members>
+		<members>OrdenTrabajoDeEstructura__c-Formato Orden de Trabajo de Estructura</members>
+		<name>Layout</name>
+	</types>
+	<types>
+		<members>addLinesToOrder</members>
+		<members>addLinesToOrderIns</members>
+		<members>addLinesToOrderMat</members>
+		<members>addLinesToOrderVar</members>
+		<members>assignStructures</members>
+		<members>associateWorkOrder</members>
 		<members>captureSignature</members>
 		<members>deliveryCampaignProducts</members>
 		<members>materialReception</members>
 		<members>orderReception</members>
+		<members>repairAndUninstall</members>
 		<members>sendPdf</members>
 		<name>LightningComponentBundle</name>
 	</types>
 	<types>
 		<members>EntregaDeProducto__c.GestionarEntrega</members>
+		<members>Estructura__c.AsignarEstructuras</members>
+		<members>Estructura__c.ReparacionDesinstalacion</members>
 		<members>Material__c.ActualizarCantidad</members>
+		<members>OdenDeCompra__c.AgregarLineasAOrden</members>
+		<members>OdenDeCompra__c.AsociarOrdenesTrabajo</members>
 		<members>OdenDeCompra__c.EnviarPDF</members>
 		<members>OdenDeCompra__c.OrderReceptionQA</members>
 		<members>OdenDeCompra__c.RecibirMaterial</members>
+		<members>OdenDeCompra__c.addLinesToOrderIns</members>
+		<members>OdenDeCompra__c.addLinesToOrderMat</members>
+		<members>OdenDeCompra__c.addLinesToOrderVar</members>
 		<name>QuickAction</name>
 	</types>
 	<types>
