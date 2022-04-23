@@ -1,9 +1,286 @@
-<apex:page readOnly="true"
-           standardController="OdenDeCompra__c"
+<apex:page standardController="OdenDeCompra__c"
            applyHtmlTag="false"
            sidebar="false"
            showHeader="false"
            cache="true"
            renderAs="advanced_pdf"
            docType="html-5.0">
+    <head>    
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <style type="text/css" media="print">
+            @page {
+                size: A4 landscape;
+            }
+
+            body {
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+
+            table,
+            td,
+            th {
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                padding-right: 15px;
+            }
+
+            th,
+            td {
+                padding: 4px;
+                font-size: small;
+            }
+
+            .align-right {
+                position: absolute;
+                right: 15px;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            p {
+                margin: 0.3rem;
+            }
+
+            .text-right {
+                text-align: right!important;
+            }
+
+            .no-margin {
+                margin: 2px!important;
+            }
+        </style>
+    </head>
+    <div style="display:none">
+        {!odenDeCompra__c.CreatedDate}
+        {!odenDeCompra__c.Cadena__c}
+        {!odenDeCompra__c.RequeridoParafecha__c}
+        {!odenDeCompra__c.RecordType.DeveloperName}
+        {!odenDeCompra__c.CampanaPublicitaria__c}
+        {!odenDeCompra__c.CampanaPublicitaria__r.Principal__c}
+        {!odenDeCompra__c.CampanaPublicitaria__r.Agencia__r.Name}
+        {!odenDeCompra__c.CampanaPublicitaria__r.Cliente__r.Name}
+    </div>
+    <!--table>
+            <tr>
+                <td style="border-color:white;">
+                    <div class="grid-item">
+                        <apex:image value="{!$Resource.DicoraLogo}" width="300" />
+                    </div>
+                </td>
+                <apex:variable var="d" value="false" rendered="{!mostrarLogoCadena}">
+                    <td style="border-color:white;">
+                        <div style="text-align: right;"> 
+                            <apex:image url="/sfc/servlet.shepherd/version/download/{!logoFileId}" width="300" />
+                        </div>
+                    </td>
+                </apex:variable>
+            </tr>
+        </table>
+    <h3 class="text-center">
+        ORDEN DE COMPRA
+    </h3>
+    <table class="detail-table align-right" style="width: auto">
+        <tr>
+            <td colspan="2">{!OdenDeCompra__c.Name}</td>
+        </tr>
+        <apex:variable var="d" value="false" rendered="{!mostrarContrato}">
+            <tr>
+                <td>
+                    Contrato
+                </td>
+                <td>
+                    {!OdenDeCompra__c.CampanaPublicitaria__r.Name}
+                </td>
+            </tr>
+        </apex:variable>
+        <apex:variable var="d" value="false" rendered="{!mostrarCliente}">
+            <tr>
+                <td>
+                    Cliente
+                </td>
+                <td>
+                    {!principal.Name}
+                </td>
+            </tr>
+        </apex:variable>
+        <apex:variable var="d" value="false" rendered="{!mostrarMarca}">
+            <tr>
+                <td>
+                    Marca
+                </td>
+                <td>
+                    {!OdenDeCompra__c.CampanaPublicitaria__r.Marca__r.Name}
+                </td>
+            </tr>
+        </apex:variable>
+        <tr>
+            <td>
+                Medio
+            </td>
+            <td>
+                Señaletica
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="color:red">
+                Condiciones de Pago: 30 días
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Fecha OC
+            </td>
+            <td>
+                {!fechaDeCreacion}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Fecha Entrega
+            </td>
+            <td>
+                {!fechaDeEntrega}
+            </td>
+        </tr>
+    </table>
+    <p class="no-margin-b no-margin">
+        {!OdenDeCompra__c.Empresa__r.TextoAMostrarEnPDF__c}: {!OdenDeCompra__c.Empresa__r.CedulaJuridica__c}
+    </p>
+    <apex:outputText escape="false" value="{!OdenDeCompra__c.Empresa__r.Direccion__c}" style="width: 50%;white-space:pre;margin:2px!important"></apex:outputText>
+    <p class="no-margin-t no-margin-b no-margin">
+        Teléfono: {!OdenDeCompra__c.Empresa__r.Telefono__c}
+    </p>
+    <p style="font-size:21px!important;margin:10px!important;padding-bottom:100px">
+        Señores: {!OdenDeCompra__c.Proveedor__r.Name}
+    </p>
+    <table width="100%">
+        <tr>
+            <apex:variable var="d" value="false" rendered="{!mostrarColDetalle}">
+                <th>Detalle</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColCadena}">
+                <th>Cadena</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColContrato}">
+                <th>Contrato</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColFormato}">
+                <th>Formato</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColProducto}">
+                <th>Producto</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColSitio}">
+                <th>Sitio</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColMedida}">
+                <th>Medida</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColArte}">
+                <th>Arte</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColMaterial}">
+                <th>Material</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColCantidad}">
+                <th>Cantidad</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColTarifa}">
+                <th>Tarifa</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColTotal}">
+                <th>Total</th>
+            </apex:variable>
+            <apex:variable var="d" value="false" rendered="{!mostrarColReqEspeciales}">
+                <th>Requerimientos Especiales</th>
+            </apex:variable>
+        </tr>
+        <apex:repeat value="{!OdenDeCompra__c.Lineas_Ordenes_de_Compra__r}" var="child">    
+            <tr>
+                <apex:variable var="d" value="false" rendered="{!mostrarColDetalle}">
+                    <td style="max-width:200px;"><apex:outputText escape="false" value="{!child.Detalle__c}"></apex:outputText></td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColCadena}">
+                    <td>{!child.Cadena__r.Name}</td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColContrato}">
+                    <td>{!child.Contrato__r.NombreCampana__c}</td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColFormato}">
+                    <td>{!child.Formato__r.Name}</td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColProducto}">
+                    <td>{!child.Producto__r.Name}</td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColSitio}">
+                    <td>{!child.Medio__r.Sitio__r.Name}</td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColMedida}">
+                    <td>{!child.Medida__r.Name}</td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColArte}">
+                    <td>{!child.Arte__r.Name}</td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColMaterial}">
+                    <td>{!child.Material__r.Name}</td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColCantidad}">
+                    <td><c:mostrarNumeroConFormatoMoneda valor="{!child.Cantidad__c}" simboloMoneda="" incluirEnParrafo="true" /></td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColTarifa}">
+                    <td><c:mostrarNumeroConFormatoMoneda valor="{!child.Tarifa__c}" simboloMoneda="{!OdenDeCompra__c.SimboloMoneda__c}" incluirEnParrafo="true" /></td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColTotal}">
+                    <td><c:mostrarNumeroConFormatoMoneda valor="{!child.Total__c}" simboloMoneda="{!OdenDeCompra__c.SimboloMoneda__c}" incluirEnParrafo="true" /></td>
+                </apex:variable>
+                <apex:variable var="d" value="false" rendered="{!mostrarColReqEspeciales}">
+                    <td>{!child.RequerimientosEspeciales__c }</td>
+                </apex:variable>
+            </tr>
+        </apex:repeat>
+    </table>
+    <table class="detail-table align-right" style="width: auto">
+        <tr>
+            <td>
+                Subtotal
+            </td>
+            <td>
+                <c:mostrarNumeroConFormatoMoneda valor="{!OdenDeCompra__c.Subtotal__c}" simboloMoneda="{!OdenDeCompra__c.SimboloMoneda__c}" incluirEnParrafo="true" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                IVA
+            </td>
+            <td>
+                <c:mostrarNumeroConFormatoMoneda valor="{!OdenDeCompra__c.IVA__c}" simboloMoneda="{!OdenDeCompra__c.SimboloMoneda__c}" incluirEnParrafo="true" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Total
+            </td>
+            <td>
+                <c:mostrarNumeroConFormatoMoneda valor="{!OdenDeCompra__c.Total__c}" simboloMoneda="{!OdenDeCompra__c.SimboloMoneda__c}" incluirEnParrafo="true" />
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div class="footer">
+        <apex:image value="{!$Resource.FirmaEncargadoOperaciones}" height="150" width="200" />
+    </div-->
 </apex:page>

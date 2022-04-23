@@ -130,7 +130,11 @@
 		<members>EstructuraEnSItio__c-Formato Estructura en Sitio</members>
 		<members>Estructura__c-Formato Estructura</members>
 		<members>LineaOrdenDeCompra__c-Formato Línea Orden de Compra</members>
+		<members>OdenDeCompra__c-Formato Orden de Compra</members>
 		<members>OdenDeCompra__c-Orden de Compra Estructuras</members>
+		<members>OdenDeCompra__c-Orden de Compra Instalacion</members>
+		<members>OdenDeCompra__c-Orden de Compra Materiales</members>
+		<members>OdenDeCompra__c-Orden de Compra Reposición Varios</members>
 		<members>OrdenTrabajoDeEstructura__c-Formato Orden de Trabajo de Estructura</members>
 		<name>Layout</name>
 	</types>
