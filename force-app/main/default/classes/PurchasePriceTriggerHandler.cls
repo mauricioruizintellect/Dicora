@@ -13,14 +13,12 @@ public class PurchasePriceTriggerHandler extends TriggerHandler{
     } 
 
     public override void afterInsert() {
-        System.debug('after insert trigger');
         if(PurchasePriceService.runOnce){
             PurchasePriceService.inactiveOldPrices(this.triggerNew);
         }
     }
 
     public override void afterUpdate() {
-        System.debug('after update trigger');
         if(PurchasePriceService.runOnce){
             PurchasePriceService.inactiveOldPrices(this.triggerNew);
         }

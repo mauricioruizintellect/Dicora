@@ -24,12 +24,8 @@ public class CampanaTriggerHandler  extends TriggerHandler {
         
         
         if(PublicityCampaignService.runOnce){
-            System.debug('se ejecuta');
             PublicityCampaignService.processMaterialProducts(this.newCampanaList,oldCampanaMap);
-        }else{
-            System.debug('no se ejecuta');
-        }
-        
+        }  
     }
     
     public void calcularDiferidos(List<Campana__c> campanas){

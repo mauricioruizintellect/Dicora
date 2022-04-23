@@ -37,7 +37,7 @@ public with sharing class OrderReceptionController {
         PageReference PDf =  Page.PrintVoucher;
         PDf.getParameters().put('id',orderId);
         PDf.setRedirect(false);
-        Blob b = PDf.getContent();
+        Blob b = !Test.isRunningTest() ? PDf.getContent() : Blob.valueOf('Fake content');
         ContentVersion cVersion = new ContentVersion();
         cVersion.ContentLocation = 'S';
         cVersion.PathOnClient = 'Orden -'+local +'.pdf';

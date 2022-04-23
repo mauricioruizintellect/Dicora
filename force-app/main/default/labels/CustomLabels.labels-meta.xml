@@ -7,4 +7,21 @@
         <shortDescription>Porcentaje Unidades Extras</shortDescription>
         <value>50</value>
     </labels>
+    <labels>
+        <fullName>ListEmailSupProduction</fullName>
+        <language>es</language>
+        <protected>false</protected>
+        <shortDescription>Email Sup Produccción</shortDescription>
+        <value>josue2aguilar258@gmail.com</value>
+    </labels>
+    <labels>
+        <fullName>plantillaEmailOC</fullName>
+        <categories>Orden_de_compra</categories>
+        <language>es_MX</language>
+        <protected>false</protected>
+        <shortDescription>plantilla email OC</shortDescription>
+        <value>Buenas noches estimado,&lt;br&gt;&lt;br&gt;
+Adjunto la cotización requerida.&lt;br&gt;&lt;br&gt;
+Saludos cordiales.</value>
+    </labels>
 </CustomLabels>
