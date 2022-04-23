@@ -53,7 +53,12 @@
 	</types>
 	<types>
 		<members>ListEmailSupProduction</members>
+		<members>plantillaEmailOC</members>
 		<name>CustomLabel</name>
+	</types>
+	<types>
+		<members>FlujoNotificacionCantidadMano</members>
+		<name>Flow</name>
 	</types>
 	<types>
 		<members>captureSignature</members>
@@ -64,7 +69,16 @@
 		<name>LightningComponentBundle</name>
 	</types>
 	<types>
+		<members>EntregaDeProducto__c.GestionarEntrega</members>
+		<members>Material__c.ActualizarCantidad</members>
+		<members>OdenDeCompra__c.EnviarPDF</members>
+		<members>OdenDeCompra__c.OrderReceptionQA</members>
+		<members>OdenDeCompra__c.RecibirMaterial</members>
+		<name>QuickAction</name>
+	</types>
+	<types>
 		<members>FirmaEncargadoOperaciones</members>
+		<members>custommodalcss</members>
 		<name>StaticResource</name>
 	</types>
 	<version>53.0</version>
