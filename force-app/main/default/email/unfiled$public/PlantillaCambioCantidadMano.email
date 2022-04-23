@@ -1,0 +1,3 @@
+El material {!Material__c.Name} sufrió una actualización de cantidad a mano realizada por el usuario {!Material__c.LastModifiedBy}
+
+link material: {!Material__c.Link}

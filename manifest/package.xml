@@ -12,7 +12,7 @@
 		<name>ApexClass</name>
 	</types>
 	<types>
-		<members>OrderSendPdf1</members>
+		<members>OrderSendPdf</members>
 		<members>PrintVoucher</members>
 		<name>ApexPage</name>
 	</types>
@@ -40,6 +40,7 @@
 		<members>LineaOrdenDeCompra__c.RazonDiferencia__c</members>
 		<members>LineaOrdenDeCompra__c.UltimaCantidadRecibida__c</members>
 		<members>Material__c.ActivarNotificacion__c</members>
+		<members>Material__c.CantidadAMano__c</members>
 		<members>OdenDeCompra__c.Cadena__c</members>
 		<members>OdenDeCompra__c.CampanaPublicitaria__c</members>
 		<members>OdenDeCompra__c.Empresa__c</members>
@@ -55,6 +56,10 @@
 		<members>ListEmailSupProduction</members>
 		<members>plantillaEmailOC</members>
 		<name>CustomLabel</name>
+	</types>
+	<types>
+		<members>unfiled$public/PlantillaCambioCantidadMano</members>
+		<name>EmailTemplate</name>
 	</types>
 	<types>
 		<members>FlujoNotificacionCantidadMano</members>
@@ -80,6 +85,10 @@
 		<members>FirmaEncargadoOperaciones</members>
 		<members>custommodalcss</members>
 		<name>StaticResource</name>
+	</types>
+	<types>
+		<members>Material__c.AlertaCambioCantidadMano</members>
+		<name>WorkflowAlert</name>
 	</types>
 	<version>53.0</version>
 </Package>
