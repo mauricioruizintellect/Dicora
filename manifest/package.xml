@@ -87,6 +87,10 @@
 		<name>StaticResource</name>
 	</types>
 	<types>
+		<members>Material__c</members>
+		<name>Workflow</name>
+	</types>
+	<types>
 		<members>Material__c.AlertaCambioCantidadMano</members>
 		<name>WorkflowAlert</name>
 	</types>
