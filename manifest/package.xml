@@ -12,7 +12,7 @@
 		<name>ApexClass</name>
 	</types>
 	<types>
-		<members>OrderSendPdf</members>
+		<members>OrderSendPdf1</members>
 		<members>PrintVoucher</members>
 		<name>ApexPage</name>
 	</types>
@@ -22,9 +22,14 @@
 		<name>ApexTrigger</name>
 	</types>
 	<types>
+		<members>MaterialReceptionAura</members>
+		<name>AuraDefinitionBundle</name>
+	</types>
+	<types>
 		<members>Campana__c.EstadoDeCampana__c</members>
 		<members>Empresa__c.Direccion__c</members>
 		<members>Empresa__c.Telefono__c</members>
+		<members>EntregaDeProduccion__c.RecibidoPorLista__c</members>
 		<members>EntregaDeProducto__c.CampanaPublicitaria__c</members>
 		<members>LineaOrdenDeCompra__c.Cadena__c</members>
 		<members>LineaOrdenDeCompra__c.CantidadRecibida__c</members>
@@ -49,6 +54,14 @@
 	<types>
 		<members>ListEmailSupProduction</members>
 		<name>CustomLabel</name>
+	</types>
+	<types>
+		<members>captureSignature</members>
+		<members>deliveryCampaignProducts</members>
+		<members>materialReception</members>
+		<members>orderReception</members>
+		<members>sendPdf</members>
+		<name>LightningComponentBundle</name>
 	</types>
 	<types>
 		<members>FirmaEncargadoOperaciones</members>

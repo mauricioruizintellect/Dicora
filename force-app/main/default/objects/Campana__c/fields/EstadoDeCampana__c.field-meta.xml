@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EstadoDeCampana__c</fullName>
+    <externalId>false</externalId>
+    <label>Estado de Campaña</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>01 Sin Firmar</fullName>
+                <default>true</default>
+                <label>01 Sin Firmar</label>
+            </value>
+            <value>
+                <fullName>02 Firmada</fullName>
+                <default>false</default>
+                <label>02 Firmada</label>
+            </value>
+            <value>
+                <fullName>03 En Proceso de Artes</fullName>
+                <default>false</default>
+                <label>03 En Proceso de Artes</label>
+            </value>
+            <value>
+                <fullName>04 Artes Completados</fullName>
+                <default>false</default>
+                <label>04 Artes Completados</label>
+            </value>
+            <value>
+                <fullName>05 Medios en Producción</fullName>
+                <default>false</default>
+                <label>05 Medios en Producción</label>
+            </value>
+            <value>
+                <fullName>06 Medios Producidos</fullName>
+                <default>false</default>
+                <label>06 Medios Producidos</label>
+            </value>
+            <value>
+                <fullName>07 Instalación de Medios Iniciada</fullName>
+                <default>false</default>
+                <label>07 Instalación de Medios Iniciada</label>
+            </value>
+            <value>
+                <fullName>08 Instalación de Medios Completada</fullName>
+                <default>false</default>
+                <label>08 Instalación de Medios Completada</label>
+            </value>
+            <value>
+                <fullName>09 Desinstalación de Medios Completada</fullName>
+                <default>false</default>
+                <label>09 Desinstalación de Medios Completada</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
