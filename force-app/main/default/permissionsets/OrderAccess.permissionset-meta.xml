@@ -164,11 +164,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Campana__c.Disenador__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Campana__c.EjecutivoDeVentas__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1054,7 +1049,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Venta__c.MedioPublicitario__c</field>
+        <field>Venta__c.Medio__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

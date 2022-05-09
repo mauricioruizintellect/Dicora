@@ -81,7 +81,7 @@ public class ControllerRepairAndUninstallTest {
         
         Venta__c venta = new Venta__c();
         venta.Cadena__c = cadena.Id;
-        venta.MedioPublicitario__c = medio.Id;
+        venta.Medio__c = medio.Id;
         venta.ProductoEtapa1__c = producto.Id;
         venta.Medida__c = medida.Id;
         venta.Campana__c = campania.Id;

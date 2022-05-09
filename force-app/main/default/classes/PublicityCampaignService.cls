@@ -9,20 +9,20 @@ public class PublicityCampaignService {
                 idCampaings.add(record.Id);
             }
         }
-        List<Venta__c> listVentas = [Select Id,MedioPublicitario__c,MedioPublicitario__r.Producto__c,ProductoEtapa1__c,
+        List<Venta__c> listVentas = [Select Id,Medio__c,Medio__r.Producto__c,ProductoEtapa1__c,
                                      Campana__c,Campana__r.NombreCampana__c,Campana__r.Name,Cantidad__c 
                                      From Venta__c 
                                      where Campana__c IN : idCampaings];
         map<String,Venta__c> mapCampaigProduct = new map<String,Venta__c>();
         for(Venta__c record:listVentas){
-            if(record.MedioPublicitario__c == null && record.ProductoEtapa1__c != null){
+            if(record.Medio__c == null && record.ProductoEtapa1__c != null){
                 mapCampaigProduct.put(record.ProductoEtapa1__c,record);
             }
-            if(record.MedioPublicitario__c != null && record.ProductoEtapa1__c == null){
-                mapCampaigProduct.put(record.MedioPublicitario__r.Producto__c,record);
+            if(record.Medio__c != null && record.ProductoEtapa1__c == null){
+                mapCampaigProduct.put(record.Medio__r.Producto__c,record);
             }
-            if(record.MedioPublicitario__c != null && record.ProductoEtapa1__c != null){
-                mapCampaigProduct.put(record.MedioPublicitario__r.Producto__c,record);
+            if(record.Medio__c != null && record.ProductoEtapa1__c != null){
+                mapCampaigProduct.put(record.Medio__r.Producto__c,record);
             }
         }
         List<MaterialDeProducto__c> listMaterialProduct = [select Id,Cantidad__c,Material__c,Material__r.Name,Material__r.CantidadAMano__c,Producto__c,Producto__r.Name From MaterialDeProducto__c 

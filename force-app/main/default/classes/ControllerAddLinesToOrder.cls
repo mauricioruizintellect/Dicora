@@ -70,11 +70,11 @@ public without sharing class ControllerAddLinesToOrder {
         result.OCAgregradas = result.listVentasAgregadas.size() > 0;
         List<String> listVentasAgrupadas = new List<String>();
         for(Venta__c item: 
-            [Select Id, Name,Cadena__c,Cadena__r.Name,MedioPublicitario__r.Sitio__r.Name ,
+            [Select Id, Name,Cadena__c,Cadena__r.Name,Medio__r.Sitio__r.Name ,
              Formato__c, Formato__r.Name, ProductoEtapa1__r.Name,Medida__r.Name, Tarifa__c, 
-             ProductoEtapa1__c,Medida__c,MedioPublicitario__r.Sitio__c,MedioPublicitario__c,
-             MedioPublicitario__r.Sitio__r.Canton__c,RequerimientosEspeciales__c, Cantidad__c,
-             MedioPublicitario__r.Sitio__r.Distrito__r.Canton__c
+             ProductoEtapa1__c,Medida__c,Medio__r.Sitio__c,Medio__c,
+             Medio__r.Sitio__r.Canton__c,RequerimientosEspeciales__c, Cantidad__c,
+             Medio__r.Sitio__r.Distrito__r.Canton__c
              from Venta__c Where Campana__c =:OC.CampanaPublicitaria__c]){
                  Venta v = new Venta();
                  String agrupar = item.Cadena__r.Name +' - '+item.Formato__r.Name+' - '+item.ProductoEtapa1__r.Name+' - '+item.Medida__r.Name;
@@ -90,10 +90,10 @@ public without sharing class ControllerAddLinesToOrder {
                  v.productoId = item.ProductoEtapa1__c;
                  v.medida = item.Medida__r.Name;
                  v.medidaId = item.Medida__c;
-                 v.sitio = item.MedioPublicitario__r.Sitio__r.Name;
-                 v.cantonId = item.MedioPublicitario__r.Sitio__r.Distrito__r.Canton__c;
-                 v.sitioId = item.MedioPublicitario__r.Sitio__c;
-                 v.medioId = item.MedioPublicitario__c;
+                 v.sitio = item.Medio__r.Sitio__r.Name;
+                 v.cantonId = item.Medio__r.Sitio__r.Distrito__r.Canton__c;
+                 v.sitioId = item.Medio__r.Sitio__c;
+                 v.medioId = item.Medio__c;
                  v.tarifa = 0.0;
                  v.tarifaOrg = 0.0;
                  v.total = 0.0;

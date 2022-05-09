@@ -47,7 +47,7 @@
 		<name>AuraDefinitionBundle</name>
 	</types>
 	<types>
-		<members>Campana__c.EstadoDeCampana__c</members>
+		<!--members>Campana__c.EstadoDeCampana__c</members-->
 		<members>Empresa__c.Direccion__c</members>
 		<members>Empresa__c.Telefono__c</members>
 		<members>EntregaDeProduccion__c.RecibidoPorLista__c</members>
@@ -95,7 +95,7 @@
 		<members>ProductoDeCampana__c.CantidadPendiente__c</members>
 		<members>ProductoDeCampana__c.CantidadRecibida__c</members>
 		<members>User.PorcentajeDeCambioDeTarijaEnOC__c</members>
-		<members>Venta__c.MedioPublicitario__c</members>
+		<!--members>Venta__c.Medio__c</members-->
 		<name>CustomField</name>
 	</types>
 	<types>
