@@ -135,9 +135,10 @@ export default class OrderReception extends LightningElement {
 		console.log(this.itemsToSave);
 	}
 	closeModal(event) {
+		this.dispatchEvent(new CustomEvent('close'));
 		this.dispatchEvent(new CloseActionScreenEvent());
 	}
-
+	@api
 	receptionOrderItems() {
 		if(this.recibidoPor != null){
 			const notExistRecordsEnabled = this.orderLineItems.some(field => field.pendienteRecibir > 0);
@@ -327,7 +328,7 @@ export default class OrderReception extends LightningElement {
 		savePdfOrder({
 			orderId: this.recordId
 		}).then(result => {
-			console.log('guardao');
+			this.dispatchEvent(new CustomEvent('close'));
 			this.dispatchEvent(new CloseActionScreenEvent());
 			setTimeout(function() {
 				window.location.reload();
