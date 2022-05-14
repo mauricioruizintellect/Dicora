@@ -275,6 +275,7 @@ export default class DeliveryCampaignProducts extends LightningElement {
         updateRecord(recordInput) 
         .then(() => {
             if(this.isDeliveredProd){
+                this.dispatchEvent(new CustomEvent('close'));
                 this.dispatchEvent(new CloseActionScreenEvent());
             }else{
                 this.setReasonProductCampaign();
@@ -327,6 +328,7 @@ export default class DeliveryCampaignProducts extends LightningElement {
         });
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
         Promise.all(promises).then(products => {
+            this.dispatchEvent(new CustomEvent('close'));
             this.dispatchEvent(new CloseActionScreenEvent());
         }).catch(error => {
             console.log(error);
