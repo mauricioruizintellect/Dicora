@@ -13,4 +13,4 @@
         }
     </aura:html>
     <c:deliveryCampaignProducts recordId="{!v.recordId}" aura:id="deliveryCampaignlLWC" onclose="{!c.cancel}"/>
-</aura:component>	
+</aura:component>
