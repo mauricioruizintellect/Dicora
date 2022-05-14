@@ -10,6 +10,8 @@ import RECEIVED_BY_FIELD from '@salesforce/schema/EntregaDeProducto__c.RecibidoP
 import DELIVERED_BY_FIELD from '@salesforce/schema/EntregaDeProducto__c.Entregado_Por__c';
 import REASON_FIELD from '@salesforce/schema/ProductoDeCampana__c.Razon__c';
 import {CloseActionScreenEvent} from 'lightning/actions';
+import modal from "@salesforce/resourceUrl/custommodalcss";
+import {loadStyle} from "lightning/platformResourceLoader";
 
 const FIELDS = ['EntregaDeProducto__c.Tipo__c','EntregaDeProducto__c.Entregado__c'];
 
@@ -32,6 +34,10 @@ export default class DeliveryCampaignProducts extends LightningElement {
     fileNameSignature;
     valueReason;
     itemprodCampaignLogProd = [];
+
+    connectedCallback() {
+        loadStyle(this, modal);
+     }
 
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     deliveryObjectRecord;

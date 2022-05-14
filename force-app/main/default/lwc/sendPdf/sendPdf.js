@@ -5,7 +5,8 @@ import sendEmail from '@salesforce/apex/OrderReceptionController.sendEmail';
 import { getRecord,getFieldValue } from 'lightning/uiRecordApi';
 import EMAIL_ADDRESS from '@salesforce/schema/OdenDeCompra__c.Proveedor__r.Correo__c';
 import bodyTemplate from '@salesforce/label/c.plantillaEmailOC';
-
+import modal from "@salesforce/resourceUrl/custommodalcss";
+import {loadStyle} from "lightning/platformResourceLoader";
 
 export default class SendPdf extends LightningElement {
    @api recordId;
@@ -13,6 +14,10 @@ export default class SendPdf extends LightningElement {
    isModalOpen = false;
    isLoadingSpinner = false;
    label = {bodyTemplate};
+
+    connectedCallback() {
+       loadStyle(this, modal);
+    }
 
    @wire(getRecord, { recordId: '$recordId', fields: [EMAIL_ADDRESS] })
     orderInfo;

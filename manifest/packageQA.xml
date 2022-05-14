@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>DeliveryCampaignProductsAura</members>
+		<members>OrderReceptionAuraQA</members>
+		<members>SendPdfAura</members>
+		<name>AuraDefinitionBundle</name>
+	</types>
+	<types>
+		<members>deliveryCampaignProducts</members>
+		<members>orderReception</members>
+		<members>sendPdf</members>
+		<name>LightningComponentBundle</name>
+	</types>
+	<types>
+		<members>EntregaDeProducto__c.GestionarEntregaQA</members>
+		<members>OdenDeCompra__c.EnviarPDFQA</members>
+		<members>OdenDeCompra__c.OrderReceptionAuraQA</members>
+		<name>QuickAction</name>
+	</types>
+	<version>53.0</version>
+</Package>
