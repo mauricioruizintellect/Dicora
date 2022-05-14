@@ -53,7 +53,6 @@ export default class SendPdf extends LightningElement {
         }).then(result => {
             this.showToast('Envío PDF','EL archivo se envío exitosamente','success');
             this.isLoadingSpinner = false;
-            this.dispatchEvent(new CustomEvent('close'));
             this.cancel();
         }).catch(error => {
             this.showToast('Envío PDF',error,'error');
@@ -62,6 +61,7 @@ export default class SendPdf extends LightningElement {
    }
 
    cancel(event){
+    this.dispatchEvent(new CustomEvent('close'));
     this.dispatchEvent(new CloseActionScreenEvent());
    }
 
