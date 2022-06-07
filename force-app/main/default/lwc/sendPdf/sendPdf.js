@@ -26,6 +26,15 @@ export default class SendPdf extends LightningElement {
     }
 
    get urlFile(){
+    //alert(window.location.origin);
+    const urlBase = window.location.origin;
+    if(urlBase.includes('lightning')){
+        //alert('poner link de plataforma');
+        return "/apex/OrderSendPdf?id="+this.recordId;
+    }else{
+        //alert('poner link de comunidad');
+        return "../../../apex/OrderSendPdf?id="+this.recordId;
+    }
     return "/apex/OrderSendPdf?id="+this.recordId
    }
   

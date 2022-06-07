@@ -4,7 +4,7 @@ import receptionMaterials from '@salesforce/apex/OrderReceptionController.recept
 import { refreshApex } from '@salesforce/apex';
 import { getPicklistValues,getObjectInfo } from 'lightning/uiObjectInfoApi';
 import DELIVERY_MAT_OBJECT from '@salesforce/schema/EntregaDeMaterial__c';
-import RECEIVED_BY_FIELD from '@salesforce/schema/EntregaDeMaterial__c.RecibidoPor__c';
+import RECEIVED_BY_FIELD from '@salesforce/schema/EntregaDeMaterial__c.RecibidoPorLista__c';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 
 export default class MaterialReception extends LightningElement {
