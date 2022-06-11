@@ -149,7 +149,7 @@ export default class AddLinesToOrderVar extends LightningElement {
         var data = this.allData;
         if(data.contrato != null && data.formato != null && data.cadena != null && 
             data.producto != null && data.medida != null && (data.sitio != null || !data.mostrarSitio) && 
-            data.total > 0 && data.arte != null){
+            data.total > 0){// && data.arte != null){
             this.allData.disabledBoton = false;
         }
     }
