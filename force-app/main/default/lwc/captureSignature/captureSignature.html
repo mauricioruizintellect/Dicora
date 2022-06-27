@@ -8,20 +8,17 @@
                 title={title} 
                 icon-name="custom:custom30">
     <div class="c-container"> 
-        <div style="text-align: center; "> 
+        <div style="text-align: center;"> 
             <h2 class="slds-text-heading_medium slds-var-m-bottom_medium">
                 Firma aquí
             </h2>            
             <p class="slds-var-m-bottom_small"> 
-                <canvas name="canvasItem" style="border:2px solid rgb(136, 135, 135);
-                background: transparent;"></canvas>
+                <canvas name="canvasItem" style="border:2px solid rgb(136, 135, 135); background: transparent;"></canvas>
             </p>
-            <p class="slds-var-m-bottom_small"> 
-            <lightning-button variant="brand" label={buttonLabel} title={buttonLabel}
-                onclick={handleSaveClick} class="slds-var-m-left_x-small"></lightning-button>
-            
-            <lightning-button variant="brand" label="Limpiar" title="Limpiar" 
-                onclick={handleClearClick} class="slds-var-m-left_x-small"></lightning-button>
+            <p class="slds-var-m-bottom_small">
+            <lightning-button variant="brand" label={buttonLabel} title={buttonLabel} onclick={handleSaveClick} class="slds-var-m-left_x-small"></lightning-button>
+
+            <lightning-button variant="brand" label="Limpiar" title="Limpiar" onclick={handleClearClick} class="slds-var-m-left_x-small"></lightning-button>
             </p>
         </div>       
     </div>

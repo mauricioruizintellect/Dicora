@@ -34,6 +34,9 @@ export default class CapturequestedEventignature extends LightningElement {
         this.template.addEventListener('mousedown', this.handleMouseDown.bind(this));
         this.template.addEventListener('mouseup', this.handleMouseUp.bind(this));
         this.template.addEventListener('mouseout', this.handleMouseOut.bind(this));
+        this.template.addEventListener('touchstart', this.handleTouchStart.bind(this));
+        this.template.addEventListener('touchmove', this.handleTouchMove.bind(this));
+        this.template.addEventListener('touchend', this.handleTouchEnd.bind(this));
     }
 
     //retrieve canvase and context
@@ -61,12 +64,28 @@ export default class CapturequestedEventignature extends LightningElement {
     handleMouseOut(event){
         this.searchCoordinatesForEvent('out', event);         
     }
+
+    //handler for touch start operation
+    handleTouchStart(event){
+        this.searchCoordinatesForEvent('start', event);         
+    }
+
+    //handler for touch move operation
+    handleTouchMove(event){
+        this.searchCoordinatesForEvent('moves', event);         
+    }
+
+    //handler for touch end operation
+    handleTouchEnd(event){
+        this.searchCoordinatesForEvent('end', event);         
+    }
     
     /*
         handler to perform save operation.
         save signature as attachment.
         after saving shows success or failure message as toast
     */
+
     handleSaveClick(){   
         //set to draw behind current content
         ctx.globalCompositeOperation = "destination-over";
@@ -101,18 +120,17 @@ export default class CapturequestedEventignature extends LightningElement {
                         variant: 'error',
                     }),
                 );
-            });
-            
+            });        
     }
 
     //clear the signature from canvas
     handleClearClick(){
-        ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);          
+        ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);   
     }
 
     searchCoordinatesForEvent(requestedEvent, event){
-        event.preventDefault();
         if (requestedEvent === 'down') {
+            event.preventDefault();
             this.setupCoordinate(event);           
             isDownFlag = true;
             isDotFlag = true;
@@ -121,12 +139,35 @@ export default class CapturequestedEventignature extends LightningElement {
                 isDotFlag = false;
             }
         }
-        if (requestedEvent === 'up' || requestedEvent === "out") {
+        if (requestedEvent === 'start' && event.target == canvasElement) {
+            //event.preventDefault();
+            this.setupCoordinates(event.touches[0]);           
+            isDownFlag = true;
+            isDotFlag = true;
+            if (isDotFlag) {
+                this.drawDot();
+                isDotFlag = false;
+            }
+        }
+        if (requestedEvent === 'up' || requestedEvent === 'out') {
+            event.preventDefault();
+            isDownFlag = false;
+        }
+        if (requestedEvent === 'end' && event.target == canvasElement) {
+            event.preventDefault();
             isDownFlag = false;
         }
         if (requestedEvent === 'move') {
+            event.preventDefault();
             if (isDownFlag) {
                 this.setupCoordinate(event);
+                this.redraw();
+            }
+        }
+        if (requestedEvent === 'moves' && event.target == canvasElement) {
+            event.preventDefault();
+            if (isDownFlag) {
+                this.setupCoordinates(event.touches[0]);
                 this.redraw();
             }
         }
@@ -134,6 +175,16 @@ export default class CapturequestedEventignature extends LightningElement {
 
     //This method is primary called from mouse down & move to setup cordinates.
     setupCoordinate(eventParam){
+        //get size of an element and its position relative to the viewport 
+        //using getBoundingClientRect which returns left, top, right, bottom, x, y, width, height.
+        const clientRect = canvasElement.getBoundingClientRect();
+        prevX = currX;
+        prevY = currY;
+        currX = eventParam.clientX -  clientRect.left;
+        currY = eventParam.clientY - clientRect.top;
+    }
+
+    setupCoordinates(eventParam){
         //get size of an element and its position relative to the viewport 
         //using getBoundingClientRect which returns left, top, right, bottom, x, y, width, height.
         const clientRect = canvasElement.getBoundingClientRect();
