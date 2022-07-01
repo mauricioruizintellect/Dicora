@@ -10,7 +10,7 @@
       <div class="slds-grid" if:false={showSignature}>
          <div class="slds-col slds-size_1-of-4">
             <template if:true={recibidoPorPicklist.data}>
-               <lightning-combobox name="Recibido" label="Recibido Por" value={recibidoPor}
+               <lightning-combobox dropdown-alignment="auto" name="Recibido" label="Recibido Por" value={recibidoPor}
                    options={recibidoPorPicklist.data.values} onchange={handleChangeRecibidoPor}>
                </lightning-combobox>
            </template>
